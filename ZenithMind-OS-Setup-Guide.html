@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenithMind OS — Setup Guide</title>
+<style>
+  @page { size: letter; margin: 0.5in 0.65in 0.7in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2d3748; line-height: 1.6; background: #fff; font-size: 10.5pt; }
+
+  /* Header */
+  .main-title { font-size: 34pt; font-weight: 800; color: #1a2535; margin-bottom: 2px; }
+  .subtitle { font-size: 14pt; color: #6b7c94; margin-bottom: 4px; }
+  .meta { font-size: 9pt; color: #8a9bb5; margin-bottom: 24px; }
+
+  /* Section headers */
+  h2 { font-size: 17pt; font-weight: 700; color: #1a2535; margin: 24px 0 10px; padding-left: 14px; border-left: 4px solid #c9953b; }
+  h3 { font-size: 13pt; font-weight: 700; color: #1a2535; margin: 18px 0 8px; }
+  h4 { font-size: 11pt; font-weight: 700; color: #1a2535; margin: 14px 0 6px; }
+
+  p { margin-bottom: 9px; }
+
+  /* Quick start box */
+  .quickstart { background: #1a2535; color: #e0e8f0; border-radius: 8px; padding: 18px 22px; margin-bottom: 22px; border-left: 5px solid #c9953b; }
+  .quickstart h3 { color: #fff; font-size: 15pt; margin: 0 0 10px; padding: 0; border: none; }
+  .quickstart ol { padding-left: 20px; font-size: 10.5pt; }
+  .quickstart li { margin-bottom: 5px; }
+  .quickstart .note { font-style: italic; color: #8a9bb5; font-size: 9.5pt; margin-top: 8px; }
+  .quickstart code { background: #2d3f55; padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 10pt; }
+  .quickstart .sub { text-align: center; color: #6b7c94; font-size: 9pt; margin-top: 10px; }
+
+  /* Callout boxes */
+  .callout { background: #f7f5f0; border-left: 4px solid #c9953b; padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0; font-size: 10pt; }
+  .callout strong { color: #c9953b; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 14px; font-size: 10pt; }
+  th { background: #1a2535; color: #fff; text-align: left; padding: 7px 12px; font-weight: 600; font-size: 9.5pt; }
+  td { padding: 7px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f7fafc; }
+  td:first-child { font-weight: 600; color: #1a2535; white-space: nowrap; }
+
+  /* Comparison table special */
+  .compare-table th:nth-child(2) { background: #6b7c94; }
+  .compare-table th:nth-child(3) { background: #c9953b; }
+  .compare-table td:nth-child(3) { color: #1a2535; font-weight: 500; }
+
+  /* Lists */
+  ol, ul { padding-left: 22px; margin-bottom: 9px; }
+  li { margin-bottom: 3px; }
+
+  /* Section boxes */
+  .section-box { border: 2px solid #1a2535; border-radius: 8px; padding: 18px 22px; margin: 16px 0; break-inside: avoid; }
+  .section-box h3 { font-size: 15pt; margin: 0 0 4px; padding: 0; border: none; }
+  .section-box .section-desc { color: #6b7c94; font-size: 10pt; margin-bottom: 12px; }
+
+  /* Upgrade callout */
+  .upgrade-box { background: linear-gradient(135deg, #1a2535 0%, #213045 100%); color: #e0e8f0; border-radius: 8px; padding: 18px 22px; margin: 14px 0; border: 1px solid #c9953b; }
+  .upgrade-box h4 { color: #c9953b; font-size: 12pt; margin: 0 0 6px; }
+  .upgrade-box p { color: #e0e8f0; font-size: 10pt; }
+
+  code { background: #edf2f7; padding: 1px 6px; border-radius: 3px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 9.5pt; }
+  strong { font-weight: 700; }
+  .gold { color: #c9953b; font-weight: 700; }
+  .dim { color: #6b7c94; font-size: 9pt; }
+
+  /* Page breaks */
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: Intro + Choosing Your Path -->
+<div class="main-title">ZenithMind OS</div>
+<div class="subtitle">Setup Guide</div>
+<div class="meta"><strong>Created by:</strong> Rich Schefren &nbsp;·&nbsp; <strong>Version:</strong> Claude Edition</div>
+
+<div class="quickstart">
+  <h3>Quick Start</h3>
+  <ol>
+    <li><strong>Unzip</strong> the ZenithMind-OS folder</li>
+    <li><strong>Open Claude Code</strong> inside that folder</li>
+    <li>Type <code>"Let's start ZenithMind"</code></li>
+  </ol>
+  <div class="note">That's it. Claude handles everything from there — the questions, the scoring, the file saves, the transitions between lessons.</div>
+  <div class="sub">Don't have Claude Code yet? Keep reading for the full setup.</div>
+</div>
+
+<h2>What Is ZenithMind OS?</h2>
+<p>ZenithMind OS is a 4-lesson personal development system that uses AI to build the most detailed psychological profile you've ever had — then uses that profile to help you see your blind spots, overcome self-sabotage, and execute on what matters most.</p>
+<p>It works with <strong>Claude</strong> — Anthropic's AI. You talk to Claude naturally, and it guides you through everything: personality assessments, fear mapping, growth stage analysis, blind spot reports, and more. All your data saves automatically so you can pick up anytime.</p>
+
+<div class="callout"><strong>What you'll need:</strong> A computer with internet, an email address, and a willingness to be deeply honest about yourself. That's it.</div>
+
+<p><strong>Total time:</strong> Lesson 1 takes 5–8 hours (can be done in a day or spread across a week). Lessons 2–4 unfold over weeks as you implement what you learn.</p>
+
+<h2>Choosing Your Path: App or Code</h2>
+<p>Both paths run the full ZenithMind OS course. Both give you the same AI mirror, the same deep profile, the same calibration experience. The difference is what happens after.</p>
+
+<p><strong>The Claude App</strong> is the conversational path. You open Claude in your browser, the AI guides you through each lesson, and you build your profile through dialogue. It works. It's familiar. If you've used ChatGPT or Claude before, you'll feel at home immediately.</p>
+
+<p><strong>Claude Code</strong> is the builder's path. Same conversation — you talk, Claude talks back. But Code also reads and writes files, generates PDF reports, and runs multi-phase skill sequences that produce deployment-ready business tools from your profile data.</p>
+
+<p>Here's what that means in practice: the ZenithMind upgrade skills — the ones that turn your profile into prospect assessments, positioning architecture, 30-day content plans, and client psychology maps — <strong>only run in Code.</strong> They need to read your Scorecard, write analysis files, and generate branded PDFs. The app can't do any of that.</p>
+
+<!-- PAGE 2: "But I'm not technical" + comparison + recommendation -->
+<h3>"But I'm not technical"</h3>
+<p>Most ZenithMind users aren't. The coaches, consultants, and experts in this program chose Code and none of them had a terminal on their screen before this.</p>
+<p>Here's the truth: Claude Code looks more intimidating than it is. It's a dark screen with text instead of a chat window. That's the entire difference. You still type in plain English. Claude still responds in plain English. The setup takes about 10 minutes, and this guide walks you through every step.</p>
+<p>Once you're in, you forget you're in a terminal. You're just talking to Claude — except now Claude can actually <em>build things</em> for you.</p>
+
+<h3>The honest comparison</h3>
+<table class="compare-table">
+  <tr><th></th><th>Claude App</th><th>Claude Code</th></tr>
+  <tr><td>Base ZMOS course</td><td>Full access</td><td>Full access</td></tr>
+  <tr><td>Setup time</td><td>2 minutes</td><td>~10 minutes</td></tr>
+  <tr><td>Interface</td><td>Browser chat</td><td>Terminal (same conversation)</td></tr>
+  <tr><td>Upgrade skills (Plus/Elite)</td><td>Not available</td><td>Full access</td></tr>
+  <tr><td>PDF report generation</td><td>Not available</td><td>Built in</td></tr>
+  <tr><td>File-based memory</td><td>Project-based</td><td>Persistent, visible, editable</td></tr>
+  <tr><td>Lesson transitions</td><td>Manual file upload</td><td>Automatic</td></tr>
+  <tr><td>Ceiling</td><td>Conversational</td><td>Unlimited</td></tr>
+</table>
+
+<div class="upgrade-box">
+  <h4>Our recommendation</h4>
+  <p>If you want the full ZenithMind experience — especially the upgrade skills that turn your profile into business tools you can deploy Monday morning — start with Code. The few extra minutes of setup unlock a fundamentally different level of capability.</p>
+  <p style="margin-top: 8px;">If Code feels like too much right now, start with the app. You can always switch later — your profile data transfers. But the people who started with Code? They'll tell you the same thing: <em>"I wish I hadn't hesitated."</em></p>
+</div>
+
+<!-- PAGE 3: Section 1 (App setup) -->
+<div class="section-box">
+  <h3>Section 1: Setup with Claude App</h3>
+  <div class="section-desc">The fastest way to start. Download the app, sign in, and go.</div>
+
+  <h4>Step 1: Get Claude</h4>
+  <ol>
+    <li>Go to <strong>claude.ai</strong> — click <strong>"Get Started"</strong> or <strong>"Sign Up"</strong></li>
+    <li>Create an account with your email — or sign in with Google</li>
+    <li>Choose a plan: <strong>Claude Pro</strong> ($20/month) gives you enough usage. Free tier may hit limits.</li>
+    <li>Optional: Download the desktop app from <strong>claude.ai/download</strong>. Web version works fine too.</li>
+  </ol>
+
+  <h4>Step 2: Set Up Your ZenithMind Project</h4>
+  <ol>
+    <li>In Claude, click <strong>"Projects"</strong> in the sidebar (or create a new Project)</li>
+    <li>Name it: <strong>ZenithMind OS</strong></li>
+    <li>Upload the ZenithMind OS folder contents to the project:
+      <ul>
+        <li>Upload the <code>CLAUDE.md</code> file from the root of the ZenithMind folder</li>
+        <li>Upload all files from the <code>lesson-1/</code> folder (CLAUDE.md + all prompt files)</li>
+      </ul>
+    </li>
+    <li>Start a new conversation in the project</li>
+  </ol>
+
+  <h4>Step 3: Start ZenithMind</h4>
+  <p>Type: <strong>"Let's start ZenithMind"</strong></p>
+  <p>Claude will read the instructions, introduce itself, and guide you through Lesson 1. Just answer honestly and follow Claude's lead. It handles the questions, scoring, file saves, and transitions.</p>
+
+  <div class="callout"><strong>Note for App users:</strong> When you finish Lesson 1 and move to Lesson 2, you'll need to upload the Lesson 2 files to your project. Claude will tell you when it's time. With Claude Code, this happens automatically.</div>
+</div>
+
+<div class="section-box">
+  <h3>Section 2: Setup with Claude Code (Recommended)</h3>
+  <div class="section-desc">More powerful. Claude reads and writes files directly on your computer. Your profile data lives in visible files you can browse anytime.</div>
+
+  <h4>Step 1: Install Node.js</h4>
+  <ol>
+    <li>Go to <strong>nodejs.org</strong> — download the <strong>LTS</strong> version (the big green button)</li>
+    <li>Run the installer — accept all defaults</li>
+  </ol>
+
+  <h4>Step 2: Install Claude Code</h4>
+  <ol>
+    <li>Open <strong>Terminal</strong> (Mac: search "Terminal" in Spotlight) or <strong>Command Prompt</strong> (Windows: search "cmd")</li>
+    <li>Type: <code>npm install -g @anthropic-ai/claude-code</code> and press Enter</li>
+    <li>Wait for it to finish installing</li>
+  </ol>
+
+  <h4>Step 3: Create Your Claude Account</h4>
+  <ol>
+    <li>Go to <strong>claude.ai</strong> and create an account (if you don't have one)</li>
+    <li>Choose <strong>Claude Pro</strong> ($20/month) or <strong>Claude Max</strong> for heavier usage</li>
+    <li>When you first run Claude Code, it will ask you to sign in — just follow the prompts</li>
+  </ol>
+
+  <h4>Step 4: Install Obsidian (Optional but Recommended)</h4>
+  <ol>
+    <li>Go to <strong>obsidian.md</strong> and download the free app</li>
+    <li>Open Obsidian, create a new vault, and point it at your ZenithMind-OS folder</li>
+    <li>This lets you browse all your profile data, outputs, and progress in a clean interface</li>
+  </ol>
+
+  <h4>Step 5: Start ZenithMind</h4>
+  <ol>
+    <li>Unzip the <strong>ZenithMind-OS</strong> folder to wherever you want on your computer</li>
+    <li>In Terminal, navigate to that folder: <code>cd path/to/ZenithMind-OS</code></li>
+    <li>Type: <code>claude</code> and press Enter</li>
+    <li>Say: <strong>"Let's start ZenithMind"</strong></li>
+  </ol>
+
+  <p>Claude reads the instructions automatically and guides you through the entire program. It handles questions, scoring, file saves, and lesson transitions. Just answer honestly.</p>
+
+  <div class="callout"><strong>Why Code is worth the 10 minutes:</strong> No file uploading between lessons. No copy-pasting prompts. Claude reads your files directly, saves your outputs automatically, and transitions between lessons without you lifting a finger. Your entire psychological profile lives in files you own and can see. And when you're ready for the upgrade skills — the ones that build branded PDFs, prospect assessments, and 30-day content plans from your data — they're already there waiting.</div>
+</div>
+
+<h2>What You'll Go Through</h2>
+<table>
+  <tr><th>Lesson</th><th>Name</th><th>What Happens</th><th>Time</th></tr>
+  <tr><td>1</td><td>AI Learns You</td><td>Calibrations, personality mapping, God Prompts, self-sabotage deep dive. Builds your baseline profile.</td><td>5–8 hrs</td></tr>
+  <tr><td>2</td><td>AI Challenges You</td><td>30-Day Transformation with 16 protocols. Identity work, fear transmutation, habit installation.</td><td>30 days</td></tr>
+  <tr><td>3</td><td>AI Expands You</td><td>Strength development, Mentor Council, Quantum Leverage. Building on your foundation.</td><td>Variable</td></tr>
+  <tr><td>4</td><td>AI Executes With You</td><td>Assessment Generator, Execution Strategy, Life Manual. Turning insight into action.</td><td>Variable</td></tr>
+</table>
+
+<p class="dim">You don't need to plan ahead. Claude guides you through each lesson in order and tells you when it's time to move on. Just show up and be honest.</p>
+
+</body>
+</html>

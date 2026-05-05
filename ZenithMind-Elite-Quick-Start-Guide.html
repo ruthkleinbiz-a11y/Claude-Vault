@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenithMind Elite — Quick Start Guide</title>
+<style>
+  @page { size: letter; margin: 0.4in 0.6in 0.4in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #2d3748; line-height: 1.5; background: #fff; font-size: 10pt; }
+
+  /* Cover */
+  .cover { background: #1a2535; color: #fff; padding: 2.4in 0.9in 1.5in; break-after: page; min-height: 100vh; }
+  .cover-badge { border: 2px solid #b8860b; display: inline-block; padding: 8px 22px; font-size: 11pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b8860b; margin-bottom: 40px; }
+  .cover h1 { font-size: 48pt; font-weight: 800; margin-bottom: 14px; line-height: 1.05; }
+  .cover .tagline { font-size: 16pt; color: #8a9bb5; margin-bottom: 64px; }
+  .cover hr { border: none; border-top: 4px solid #b8860b; width: 60px; margin-bottom: 56px; }
+  .cover .info { font-size: 12pt; margin-bottom: 20px; color: #c8d6e5; }
+  .cover .info strong { color: #b8860b; }
+
+  /* Page layout */
+  .page { break-before: page; }
+  .page-header { margin-bottom: 12px; padding-bottom: 6px; border-bottom: 3px solid #b8860b; display: flex; justify-content: space-between; align-items: baseline; }
+  .page-header h2 { font-size: 24pt; font-weight: 800; color: #1a2535; }
+  .page-header .page-num { font-size: 8.5pt; color: #8a9bb5; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* Typography */
+  h3 { font-size: 12pt; font-weight: 700; color: #1a2535; margin: 16px 0 6px; }
+  p { margin-bottom: 8px; }
+  strong { color: #1a2535; }
+
+  /* Section labels */
+  .section-label { font-size: 8pt; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8a9bb5; margin: 12px 0 6px; }
+
+  /* Section block */
+  .section-block { background: #f7f8fa; border-radius: 6px; padding: 12px 16px; margin: 10px 0; }
+  .section-block .section-label { margin: 0 0 6px; color: #1a2535; font-size: 8.5pt; letter-spacing: 2.5px; }
+  .section-block p { margin-bottom: 4px; }
+  .section-block p:last-child { margin-bottom: 0; }
+
+  /* Callout — Elite gold */
+  .callout { background: #fdf6ee; border-left: 4px solid #b8860b; padding: 10px 14px; margin: 10px 0; border-radius: 0 4px 4px 0; }
+  .callout strong { color: #1a2535; }
+  .callout em { color: #6b7c94; }
+
+  /* Emphasis box */
+  .emphasis-box { background: #1a2535; color: #e0e8f0; border-radius: 6px; padding: 12px 16px; margin: 10px 0; }
+  .emphasis-box strong { color: #b8860b; }
+
+  /* Confirmation callout */
+  .callout-confirm { background: #fef2f0; border-left: 3px solid #d4654a; padding: 10px 14px; margin: 10px 0; border-radius: 0 4px 4px 0; }
+  .callout-confirm strong { color: #c0392b; }
+
+  /* Steps — setup */
+  .step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .step-num { flex-shrink: 0; width: 24px; height: 24px; border: 2.5px solid #b8860b; color: #b8860b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 10pt; margin-top: 2px; }
+  .step-content { flex: 1; }
+  .step-content p { margin-bottom: 4px; }
+
+  /* Code block */
+  .code-block { background: #1a2535; color: #e0e8f0; padding: 10px 16px; border-radius: 6px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 9.5pt; margin: 8px 0; font-style: italic; }
+
+  /* Phase header */
+  .phase-header { display: flex; align-items: center; gap: 8px; margin: 14px 0 6px; }
+  .phase-badge { background: #b8860b; color: #fff; font-size: 7.5pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 3px; }
+  .phase-title { font-size: 11pt; font-weight: 700; color: #1a2535; }
+
+  /* Path step */
+  .path-step { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .path-num { flex-shrink: 0; width: 20px; height: 20px; background: #b8860b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 8.5pt; margin-top: 1px; }
+  .path-content { flex: 1; }
+  .path-content .path-skill { font-weight: 700; color: #1a2535; font-size: 9.5pt; }
+  .path-content .path-desc { color: #4a5568; font-size: 9.5pt; margin-top: 1px; }
+  .path-connector { width: 20px; display: flex; justify-content: center; margin: -3px 0; }
+  .path-connector span { display: block; width: 2px; height: 6px; background: #dcc896; }
+
+  /* Anytime skills */
+  .anytime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 12px; margin: 6px 0; }
+  .anytime-item { font-size: 9.5pt; }
+  .anytime-item strong { font-size: 10pt; }
+
+  /* Two column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0; }
+
+  /* Fork cards */
+  .fork-card { border: 1.5px solid #e2e8f0; border-radius: 6px; padding: 14px 16px; margin: 8px 0; }
+  .fork-card h3 { margin: 0 0 6px; font-size: 12pt; }
+  .fork-card-yes { border-top: 4px solid #1a8a7a; }
+  .fork-card-yes h3 { color: #1a8a7a; }
+  .fork-card-no { border-top: 4px solid #8a9bb5; }
+  .fork-card-no h3 { color: #6b7c94; }
+
+  /* Lists */
+  ul { padding-left: 18px; margin-bottom: 8px; }
+  li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: Cover -->
+<div class="cover">
+  <div class="cover-badge">ZenithMind Elite</div>
+  <h1>Quick Start Guide</h1>
+  <div class="tagline">One Person. One Machine. One Complete Business System.</div>
+  <hr>
+  <div class="info"><strong>For:</strong> ZenithMind Elite Members</div>
+  <div class="info"><strong>Runs on:</strong> Claude Code — the Code tab in your Claude app</div>
+  <div class="info"><strong>Setup time:</strong> ~5 minutes (after ZenithMind OS is complete)</div>
+</div>
+
+<!-- PAGE 2: Getting Started -->
+<div class="page">
+  <div class="page-header">
+    <h2>Getting Started</h2>
+    <span class="page-num">Page 2</span>
+  </div>
+
+  <p style="margin-bottom: 6px;">ZenithMind Elite is a <strong>complete AI-powered business system</strong> — 13 tools that read directly from the profile you built in ZenithMind OS. <strong>Elite includes everything in Plus</strong> — you only need this package.</p>
+
+  <div class="callout" style="border-left-color: #3a5f99; background: #e8eff8; padding: 8px 12px; margin: 6px 0;">
+    <p style="margin: 0;"><strong>Did you do ZenithMind through ChatGPT?</strong> All your data comes with you. Head to <strong>zenithpro.io</strong>, navigate to <strong>ZenithMind OS 2026</strong>, and check the <strong>ChatGPT Migration</strong> section in the Start Here tab. If not and you're a first-time user (which most of you are), just continue on.</p>
+  </div>
+
+  <div class="emphasis-box" style="padding: 8px 12px; margin: 6px 0;">
+    <p style="margin: 0; font-size: 9.5pt;"><strong>First question: Have you completed ZenithMind OS?</strong> Every Elite tool runs on your profile data. If not — go to <strong>zenithpro.io</strong>, log in, click <strong>ZenithMind OS 2026</strong>, download the <strong>Code</strong> version. Complete it first, then come back.</p>
+  </div>
+
+  <div class="fork-card fork-card-yes" style="padding: 8px 12px; margin: 6px 0;">
+    <h3 style="margin-bottom: 3px;">Yes — I've completed ZenithMind OS</h3>
+    <p style="margin-bottom: 4px; font-size: 9pt;">If you completed ZenithMind OS in Claude Code, your profile data is already there. You just need to add your Elite tools.</p>
+
+    <div class="step" style="margin-bottom: 4px;">
+      <div class="step-num" style="border-color: #1a8a7a; color: #1a8a7a;">1</div>
+      <div class="step-content">
+        <p style="margin: 0; font-size: 9.5pt;"><strong>Log in to <a href="https://zenithpro.io" style="color: #1a8a7a;">zenithpro.io</a></strong> and find the <strong>ZenithMind Elite</strong> card. Click <strong>Start Here</strong>, then walk through the modules if you haven't yet. <strong>Modules 4 and 5 have your Elite skills.</strong> As an Elite member, your Plus skills are included — everything is in one place.</p>
+        <img src="portal-elite-card.png" alt="ZenithMind Elite card" style="width: 100%; max-width: 420px; border-radius: 6px; margin-top: 6px; border: 1px solid #e2e8f0;">
+      </div>
+    </div>
+
+    <div class="step" style="margin-bottom: 4px;">
+      <div class="step-num" style="border-color: #1a8a7a; color: #1a8a7a;">2</div>
+      <div class="step-content">
+        <p style="margin: 0 0 2px;"><strong>Open Claude Code</strong> and tell it:</p>
+        <div class="code-block" style="margin: 2px 0; padding: 5px 12px;">"I downloaded my ZenithMind Elite Skills and the zip is in my Downloads. Set it up."</div>
+        <p style="margin: 2px 0 0; font-size: 9pt; color: #6b7c94;">Claude handles the rest — extracts the zip, installs the tools, and confirms everything is ready.</p>
+      </div>
+    </div>
+
+    <div class="step" style="margin-bottom: 0;">
+      <div class="step-num" style="border-color: #1a8a7a; color: #1a8a7a;">3</div>
+      <div class="step-content">
+        <p style="margin: 0;"><strong>Start with Personal Brand DNA Extractor</strong> — follow the path on Pages 4-5.</p>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- PAGE 3: Not Yet + Help -->
+<div class="page">
+  <div class="page-header">
+    <h2>Haven't Completed ZenithMind OS?</h2>
+    <span class="page-num">Page 3</span>
+  </div>
+
+  <div class="fork-card fork-card-no" style="padding: 24px 28px; margin: 16px 0;">
+    <h3 style="font-size: 16pt; margin-bottom: 12px;">Not yet — I haven't completed ZenithMind OS</h3>
+    <p style="margin-bottom: 14px; font-size: 11.5pt; line-height: 1.6;">These tools run entirely on your profile data — without it, there's nothing to power them. Your Scorecard, Signature Profile, and Personal Instruction Manual are the engine that drives every one of these 13 tools. Complete the base program first.</p>
+    <p style="margin-bottom: 14px; font-size: 11.5pt; line-height: 1.6;"><strong>Step 1:</strong> Go to <strong>zenithhub.ai</strong> and select <strong>ZenithMind OS</strong> from "Choose Your Program." This walks you through getting Claude Code and Obsidian set up on your computer.</p>
+    <p style="margin-bottom: 14px; font-size: 11.5pt; line-height: 1.6;"><strong>Step 2:</strong> Go to <strong>zenithpro.io</strong>, log in, and find the <strong>ZenithMind OS 2026</strong> card. Download the <strong>Code</strong> version.</p>
+    <p style="margin-bottom: 0; font-size: 11.5pt; line-height: 1.6;"><strong>Step 3:</strong> Complete all 4 lessons — it takes a few focused sessions. Then come back to this guide and pick up on Page 2.</p>
+  </div>
+
+  <div class="section-block" style="margin-top: 24px; padding: 20px 24px;">
+    <div class="section-label" style="font-size: 9pt;">Need Help?</div>
+    <p style="font-size: 11pt; margin-bottom: 8px;">Visit <strong>zenithhub.ai</strong> and select <strong>ZenithMind Elite</strong> from "Choose Your Program" for setup help and troubleshooting.</p>
+    <p style="font-size: 11pt; margin: 0;">If you need additional help, email <strong>mail@strategicprofits.com</strong>. Don't spend more than 15 minutes on an error — that's what support is for.</p>
+  </div>
+</div>
+
+<!-- PAGE 4: The Path (Phase 1 + 2 + 3) -->
+<div class="page">
+  <div class="page-header">
+    <h2>The Path</h2>
+    <span class="page-num">Page 4</span>
+  </div>
+
+  <p>You have 13 tools. That's a complete business system — but running them in the wrong order wastes what they can do. <strong>Follow this path.</strong> Each phase builds on the last. Each tool's output makes the next one sharper.</p>
+
+  <div class="emphasis-box">
+    <p style="margin: 0;"><strong>Four phases, in order.</strong> Phase 1 builds your brand foundation. Phase 2 maps your market. Phase 3 extracts your IP. Phase 4 deploys everything. Plus tools you run whenever you need them.</p>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-header">
+    <div class="phase-badge">Phase 1</div>
+    <div class="phase-title">Brand Foundation — Who You Are and How You Sound</div>
+  </div>
+
+  <div class="path-step">
+    <div class="path-num">1</div>
+    <div class="path-content">
+      <div class="path-skill">Personal Brand DNA Extractor</div>
+      <div class="path-desc">Reads your existing materials — courses, emails, calls, testimonials — and extracts 8 data files: voice, credentials, transformations, origin story, philosophy, avatar. <strong>Start here. Everything downstream feeds off this.</strong></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-header">
+    <div class="phase-badge">Phase 2</div>
+    <div class="phase-title">Market — Who You Serve and What's Blocking You</div>
+  </div>
+
+  <div class="path-step">
+    <div class="path-num">2</div>
+    <div class="path-content">
+      <div class="path-skill">Client Compass</div>
+      <div class="path-desc">Maps your ideal client at a psychological level — beliefs, struggles, exact language, screening criteria. Produces a Client Compass Card for discovery calls.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">3</div>
+    <div class="path-content">
+      <div class="path-skill">Theory of Constraints</div>
+      <div class="path-desc">15-minute diagnostic that identifies the specific bottleneck in your business — not a category, the real thing. Delivers 3 concrete moves for this week.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">4</div>
+    <div class="path-content">
+      <div class="path-skill">Constraint Portfolio</div>
+      <div class="path-desc">Calculates throughput-per-founder-hour for every product and ranks your full portfolio. Reveals which products are your best and worst time investments.</div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-header">
+    <div class="phase-badge">Phase 3</div>
+    <div class="phase-title">IP — Extract and Package What You Know</div>
+  </div>
+
+  <div class="path-step">
+    <div class="path-num">5</div>
+    <div class="path-content">
+      <div class="path-skill">Distinction System</div>
+      <div class="path-desc">Surfaces the insights buried in your content, builds each into a complete teaching unit, and generates the quotable one-liner that makes it portable.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">6</div>
+    <div class="path-content">
+      <div class="path-skill">Framework Forge</div>
+      <div class="path-desc">Mines your content for the repeatable methodologies you run instinctively. Builds them into named frameworks with complete supporting materials.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">7</div>
+    <div class="path-content">
+      <div class="path-skill">Mechanism Ideator</div>
+      <div class="path-desc">Generates mechanism candidates for your offers, scores them against surprise/credibility/resonance/differentiation, and builds research packages with proof.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: The Path (Phase 4 + Anytime) -->
+<div class="page">
+  <div class="page-header">
+    <h2>The Path (continued)</h2>
+    <span class="page-num">Page 5</span>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-header" style="margin-top: 0;">
+    <div class="phase-badge">Phase 4</div>
+    <div class="phase-title">Deploy — Put Everything to Work</div>
+  </div>
+
+  <div class="path-step">
+    <div class="path-num">8</div>
+    <div class="path-content">
+      <div class="path-skill">Content Forge</div>
+      <div class="path-desc">Produces 30 days of ready-to-post content in your voice — posts, emails, video scripts — multiplied into 50-80+ derivative pieces with a weekly workflow system.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">9</div>
+    <div class="path-content">
+      <div class="path-skill">Prospect Primer</div>
+      <div class="path-desc">Builds a prospect-facing assessment that runs on your website or as a lead magnet. Prospects score themselves and arrive at your calls already sold.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">10</div>
+    <div class="path-content">
+      <div class="path-skill">Copywriting Arena</div>
+      <div class="path-desc">Runs your brief through 5 proven copywriting methodologies simultaneously. Critics evaluate every draft, a marketplace judge picks a winner, and a synthesis combines the strongest elements.</div>
+    </div>
+  </div>
+  <div class="path-connector"><span></span></div>
+
+  <div class="path-step">
+    <div class="path-num">11</div>
+    <div class="path-content">
+      <div class="path-skill">Webinar Arena</div>
+      <div class="path-desc">Writes 6 complete webinars from one brief using different proven structures. Critics evaluate, a marketplace judge picks a winner, and a synthesis pulls the best into one unified presentation.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 18px;">
+    <p style="margin: 0;">By the time you finish Phase 4, you have: your brand DNA extracted, your market mapped, your bottleneck identified, your IP packaged, your content running, your lead magnet deployed, your sales copy written, and your webinar built. <strong>One person, one machine, one complete business system.</strong></p>
+  </div>
+
+  <div class="section-label" style="margin-top: 20px;">Use Anytime</div>
+
+  <div class="anytime-grid" style="gap: 8px 14px;">
+    <div class="anytime-item">
+      <strong>Deep Research</strong><br>
+      Sends one question to 9 sources simultaneously. One coherent report in minutes. Run before any major decision.
+    </div>
+    <div class="anytime-item">
+      <strong>Strategic Builder</strong><br>
+      8-phase project lifecycle from scoping through archiving. Use at the start of any major build.
+    </div>
+  </div>
+
+  <div class="emphasis-box" style="margin-top: 16px;">
+    <p style="margin: 0;"><strong>You can run any tool at any time</strong> — the path above is the recommended order, not a locked sequence. But if you follow it, each phase's output compounds into the next. The system gets more powerful as you go.</p>
+  </div>
+
+  <div class="section-block" style="margin-top: 14px;">
+    <div class="section-label">How It Works</div>
+    <p><strong>Each tool produces output</strong> — PDF reports, deployable documents, complete frameworks — all saved to your ZenithMind folder on your computer. Your data stays local. Run any tool as many times as you want with different inputs, briefs, or contexts.</p>
+  </div>
+</div>
+
+</body>
+</html>
