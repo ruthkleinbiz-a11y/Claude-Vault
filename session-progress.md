@@ -1,7 +1,7 @@
 # ZenithMind OS — Progress
 **System version:** 1.0.0
 **Name:** Ruth
-**Tier:** 
+**Tier:** Base
 **Current Lesson:** 1
 **Current Step:** Step 1
 **Current Phase:** Not started
