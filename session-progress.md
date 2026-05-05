@@ -1,6 +1,6 @@
 # ZenithMind OS — Progress
 **System version:** 1.0.0
-**Name:** 
+**Name:** Ruth
 **Tier:** 
 **Current Lesson:** 1
 **Current Step:** Step 1
