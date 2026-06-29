@@ -397,45 +397,44 @@ def build_moves(story, data: dict, styles):
 
 
 def build_cta(story, first_name: str, data: dict, styles):
-    story.append(Spacer(1, 10))
-    cta_content = [
-        [Paragraph(
-            f"<font color='#{GOLD.hexval()[2:]}'><b>Ready to Move Faster, {first_name}?</b></font>",
+    cta_items = [
+        Paragraph(
+            f"<font color='#{GOLD.hexval()[2:]}'><b>What's Waiting For You on the Call, {first_name}</b></font>",
             ParagraphStyle("cta_head", fontSize=15, fontName="Helvetica-Bold",
                            textColor=GOLD, alignment=TA_LEFT, spaceAfter=8),
-        )],
-        [Paragraph(data["cta_hook"], styles["cta_text"])],
-        [Spacer(1, 4)],
-        [Paragraph(
-            "I work with experts, executives, and business owners who are ready to stop "
-            "being the best-kept secret in their field — and become the clear choice. "
-            "My clients don't just get more visible. They get visible in a way that "
-            "generates real opportunities, real revenue, and real impact.",
+        ),
+        Paragraph(
+            "This report is your starting point — and Ruth is going to take you further in 15 minutes "
+            "than most people get in months of trial and error.",
             styles["cta_text"],
-        )],
-        [Spacer(1, 4)],
-        [Paragraph(
-            "<b>Book a complimentary 30-minute Visibility Strategy Call with me.</b>",
+        ),
+        Spacer(1, 4),
+        Paragraph(
+            "On your complimentary Visibility Strategy Call, Ruth will:",
             styles["cta_bold"],
-        )],
-        [Paragraph(
-            "We'll look at your specific situation, identify your fastest path to visibility, "
-            "and you'll leave with clarity on exactly what to do next — whether we work "
-            "together or not.",
+        ),
+        Paragraph("→  Walk through your full archetype profile with you — what it means specifically for your business, "
+                  "your industry, and your goals", styles["bullet"]),
+        Paragraph("→  Pinpoint the single highest-leverage move available to you right now", styles["bullet"]),
+        Paragraph("→  Give you a clear, honest assessment of what's actually standing between you and "
+                  "being the recognized authority you should be", styles["bullet"]),
+        Spacer(1, 6),
+        Paragraph(
+            "This is a real strategy session — not a sales pitch. "
+            "Ruth works with a small number of clients and only takes on engagements where she knows "
+            "she can create a significant result. You'll leave with clarity and a next step, "
+            "whether we work together or not.",
             styles["cta_text"],
-        )],
-        [Spacer(1, 8)],
-        [Paragraph(
+        ),
+        Spacer(1, 8),
+        Paragraph(
             "→  <b>ruthklein.com/calendar</b>  ←",
             ParagraphStyle("cta_link", fontSize=13, fontName="Helvetica-Bold",
                            textColor=GOLD, alignment=TA_CENTER),
-        )],
+        ),
     ]
-    flat = []
-    for row in cta_content:
-        flat.append(row[0])
 
-    cta_table = Table([[elem] for elem in flat], colWidths=[6.0 * inch])
+    cta_table = Table([[elem] for elem in cta_items], colWidths=[6.0 * inch])
     cta_table.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), CREAM),
         ("TOPPADDING", (0, 0), (-1, -1), 6),
