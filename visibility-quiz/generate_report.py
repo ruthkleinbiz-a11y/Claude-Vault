@@ -346,45 +346,54 @@ def cover_page(story, first_name: str, archetype: str, data: dict, styles):
 
 # ── Section builder ───────────────────────────────────────────────────────────
 
-def section_header(story, title: str, styles):
-    story.append(HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4))
-    story.append(Paragraph(title, styles["section_head"]))
-
 
 def build_summary(story, data: dict, styles):
-    section_header(story, "What This Means For You", styles)
-    story.append(Paragraph(data["summary"], styles["body"]))
+    block = [
+        HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4),
+        Paragraph("What This Means For You", styles["section_head"]),
+        Paragraph(data["summary"], styles["body"]),
+    ]
+    story.append(KeepTogether(block))
 
 
 def build_strengths(story, data: dict, styles):
-    section_header(story, "What You're Already Doing Right", styles)
-    story.append(Paragraph(
-        "These aren't small wins — they're the foundation everything else gets built on:", styles["body"]
-    ))
-    for item in data["strengths"]:
-        story.append(Paragraph(f"<b>→</b>  {item}", styles["bullet"]))
+    block = [
+        HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4),
+        Paragraph("What You're Already Doing Right", styles["section_head"]),
+        Paragraph(
+            "These aren't small wins — they're the foundation everything else gets built on:",
+            styles["body"],
+        ),
+    ] + [Paragraph(f"<b>→</b>  {item}", styles["bullet"]) for item in data["strengths"]]
+    story.append(KeepTogether(block))
 
 
 def build_gaps(story, data: dict, styles):
-    section_header(story, "Where the Gap Lives", styles)
-    story.append(Paragraph(
-        "Understanding the gap is the first step to closing it:", styles["body"]
-    ))
-    for item in data["gaps"]:
-        story.append(Paragraph(f"<b>→</b>  {item}", styles["bullet"]))
+    block = [
+        HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4),
+        Paragraph("Where the Gap Lives", styles["section_head"]),
+        Paragraph(
+            "Understanding the gap is the first step to closing it:",
+            styles["body"],
+        ),
+    ] + [Paragraph(f"<b>→</b>  {item}", styles["bullet"]) for item in data["gaps"]]
+    story.append(KeepTogether(block))
 
 
 def build_moves(story, data: dict, styles):
-    section_header(story, "Your 4 Priority Moves", styles)
-    story.append(Paragraph(
-        "These are the highest-leverage actions for someone at your exact stage:", styles["body"]
-    ))
+    story.append(KeepTogether([
+        HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4),
+        Paragraph("Your 4 Priority Moves", styles["section_head"]),
+        Paragraph(
+            "These are the highest-leverage actions for someone at your exact stage:",
+            styles["body"],
+        ),
+    ]))
     for i, (title, body) in enumerate(data["moves"], 1):
-        block = [
+        story.append(KeepTogether([
             Paragraph(f"{i}. {title}", styles["move_title"]),
             Paragraph(body, styles["move_body"]),
-        ]
-        story.append(KeepTogether(block))
+        ]))
 
 
 def build_cta(story, first_name: str, data: dict, styles):
@@ -417,7 +426,7 @@ def build_cta(story, first_name: str, data: dict, styles):
         )],
         [Spacer(1, 8)],
         [Paragraph(
-            "→  <b>ruthklein.com/strategy-call</b>  ←",
+            "→  <b>ruthklein.com/calendar</b>  ←",
             ParagraphStyle("cta_link", fontSize=13, fontName="Helvetica-Bold",
                            textColor=GOLD, alignment=TA_CENTER),
         )],
@@ -435,30 +444,33 @@ def build_cta(story, first_name: str, data: dict, styles):
         ("RIGHTPADDING", (0, 0), (-1, -1), 22),
         ("BOX", (0, 0), (-1, -1), 2, GOLD),
     ]))
-    story.append(cta_table)
+    story.append(KeepTogether([Spacer(1, 10), cta_table]))
 
 
 def build_about(story, styles):
-    story.append(Spacer(1, 16))
-    section_header(story, "About Ruth Klein", styles)
-    story.append(Paragraph(
-        "Ruth Klein is a visibility strategist, bestselling author, and business acceleration "
-        "expert who has helped hundreds of entrepreneurs, executives, and thought leaders "
-        "build the kind of presence that creates consistent opportunity. Her clients become "
-        "the recognized authorities in their fields — not by doing more, but by getting "
-        "strategic about exactly how, where, and to whom they show up.",
-        styles["body"],
-    ))
-    story.append(Paragraph(
-        "Ruth's work has been featured in major media, and she brings decades of real-world "
-        "experience helping experts stop being invisible and start being irresistible to "
-        "the clients and opportunities they're meant to attract.",
-        styles["body"],
-    ))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("ruthklein.com", ParagraphStyle(
-        "website", fontSize=11, textColor=GOLD, fontName="Helvetica-Bold", alignment=TA_CENTER,
-    )))
+    story.append(KeepTogether([
+        Spacer(1, 16),
+        HRFlowable(width="100%", thickness=1, color=GOLD, spaceAfter=4),
+        Paragraph("About Ruth Klein", styles["section_head"]),
+        Paragraph(
+            "Ruth Klein is a visibility strategist, bestselling author, and business acceleration "
+            "expert who has helped hundreds of entrepreneurs, executives, and thought leaders "
+            "build the kind of presence that creates consistent opportunity. Her clients become "
+            "the recognized authorities in their fields — not by doing more, but by getting "
+            "strategic about exactly how, where, and to whom they show up.",
+            styles["body"],
+        ),
+        Paragraph(
+            "Ruth's work has been featured in major media, and she brings decades of real-world "
+            "experience helping experts stop being invisible and start being irresistible to "
+            "the clients and opportunities they're meant to attract.",
+            styles["body"],
+        ),
+        Spacer(1, 4),
+        Paragraph("ruthklein.com", ParagraphStyle(
+            "website", fontSize=11, textColor=GOLD, fontName="Helvetica-Bold", alignment=TA_CENTER,
+        )),
+    ]))
 
 
 # ── Main generator ────────────────────────────────────────────────────────────
