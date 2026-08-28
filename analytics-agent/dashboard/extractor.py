@@ -60,6 +60,60 @@ def _platform_entry(all_data: dict, platform_id: str, metrics_map: list[tuple[st
     return result
 
 
+def _build_hotjar(all_data: dict) -> dict:
+    blob = all_data.get("hotjar", {})
+    data = blob.get("data") or {}
+    if not data:
+        return {"status": "pending", "stats": []}
+    stats = []
+    for k, label, unit in [
+        ("visitors",         "Visitors",          ""),
+        ("sessions",         "Sessions",          ""),
+        ("pageviews",        "Page views",        ""),
+        ("recordings_total", "Recordings",        ""),
+        ("heatmaps_active",  "Active heatmaps",   ""),
+        ("rage_click_pages", "Rage-click pages",  ""),
+        ("u_turn_pages",     "U-turn pages",      ""),
+        ("nps_score",        "NPS score",         ""),
+        ("feedback_rating",  "Feedback rating",   ""),
+    ]:
+        v = _num(data.get(k))
+        if v is not None:
+            entry = {"k": label, "v": v}
+            if unit:
+                entry["unit"] = unit
+            stats.append(entry)
+    return {"status": "ok" if stats else "pending", "stats": stats}
+
+
+def _build_seo(all_data: dict) -> dict:
+    sa = all_data.get("search_atlas", {})
+    if not sa:
+        return {"status": "pending", "overview": {}, "rankings": [], "competitors": [], "opportunities": []}
+
+    overview_raw = (sa.get("overview") or {}).get("data") or {}
+    overview = {
+        "Domain authority":   _num(overview_raw.get("domain_authority")),
+        "Organic traffic":    _num(overview_raw.get("organic_traffic")),
+        "Organic keywords":   _num(overview_raw.get("organic_keywords")),
+        "Backlinks":          _num(overview_raw.get("backlinks")),
+        "Referring domains":  _num(overview_raw.get("referring_domains")),
+    }
+
+    rankings = (sa.get("rankings") or {}).get("data") or []
+    competitors = (sa.get("competitors") or {}).get("data") or []
+    opportunities = (sa.get("opportunities") or {}).get("data") or []
+
+    has_data = any(v is not None for v in overview.values()) or rankings or competitors
+    return {
+        "status": "ok" if has_data else "pending",
+        "overview": overview,
+        "rankings": rankings[:20],
+        "competitors": competitors,
+        "opportunities": opportunities[:10],
+    }
+
+
 def build_dash_data(all_data: dict, analysis: str, config: dict) -> dict:
     now = datetime.now(tz=timezone.utc)
     lookback = config["report"]["lookback_days"]
@@ -227,6 +281,9 @@ def build_dash_data(all_data: dict, analysis: str, config: dict) -> dict:
             "channels": [],
             "countries": [],
         },
+
+        "hotjar": _build_hotjar(all_data),
+        "seo": _build_seo(all_data),
 
         "history": {},
     }

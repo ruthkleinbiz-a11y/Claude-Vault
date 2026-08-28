@@ -40,6 +40,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GOOGLE_SERVICE_ACCOUNT_JSON: secrets/google-service-account.json
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          HOTJAR_API_KEY: ${{ secrets.HOTJAR_API_KEY }}
+          HOTJAR_SITE_ID: ${{ secrets.HOTJAR_SITE_ID }}
+          SEARCH_ATLAS_API_KEY: ${{ secrets.SEARCH_ATLAS_API_KEY }}
         run: python agent.py
 
       - name: Upload PDF report as artifact

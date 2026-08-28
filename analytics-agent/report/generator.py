@@ -75,6 +75,12 @@ Cross-platform patterns. What type of content is resonating? What isn't? Any day
 ## RECOMMENDATIONS FOR NEXT 2 WEEKS
 5-7 specific, actionable recommendations ranked by impact. Not generic advice — tie each one to the data.
 
+## WEBSITE BEHAVIOR (HOTJAR)
+Summarize visitor behavior data: sessions, pageviews, rage clicks, U-turns, NPS score, and feedback rating. Note any UX friction signals worth acting on. Skip this section if no Hotjar data is present.
+
+## SEO & KEYWORDS (SEARCH ATLAS)
+Summarize keyword ranking performance: which tracked keywords are in the top 10/20/50, biggest movers (up or down), domain authority, organic traffic estimate, and backlink profile. Include competitor comparison highlights. Flag any quick-win opportunities from the keyword gap analysis. Skip this section if no Search Atlas data is present.
+
 ## THINGS TO KEEP AN EYE ON
 Any anomalies, unexpected spikes or drops, or metrics that need investigation.
 

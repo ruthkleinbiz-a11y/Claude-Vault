@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Load .env (local runs). GitHub Actions uses repo secrets instead.
 load_dotenv(Path(__file__).parent / ".env")
 
-from connectors import windsor, twitter as twitter_connector, manual_import
+from connectors import windsor, twitter as twitter_connector, manual_import, hotjar, search_atlas
 from report import generator
 from sheets import writer as sheets_writer
 from drive import uploader as drive_uploader
@@ -74,6 +74,19 @@ def collect_all_data(config: dict) -> dict:
             )
         else:
             print("[agent] Twitter: TWITTER_USERNAME not set — skipping.")
+
+    hj_cfg = config.get("hotjar", {})
+    if hj_cfg.get("enabled"):
+        site_id = hj_cfg.get("site_id") or os.environ.get("HOTJAR_SITE_ID", "")
+        if site_id:
+            print(f"[agent] Fetching Hotjar for site {site_id}...")
+            all_data["hotjar"] = hotjar.fetch(site_id, config["report"]["lookback_days"])
+        else:
+            print("[agent] Hotjar: HOTJAR_SITE_ID not set — skipping.")
+
+    sa_data = search_atlas.fetch_all(config)
+    if sa_data:
+        all_data["search_atlas"] = sa_data
 
     manual_cfg = config.get("manual_imports", {})
 

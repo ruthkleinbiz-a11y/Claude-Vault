@@ -53,6 +53,35 @@ twitter:
   username: ""  # fill in your @handle (without @)
   metrics: [impressions, engagements, likes, retweets, replies, link_clicks, follows]
 
+# Hotjar — visitor behavior, heatmaps, rage clicks, NPS
+# HOTJAR_API_KEY: Settings → Account → API Access → Personal API Key
+# HOTJAR_SITE_ID: Settings → Sites → Site ID (numeric)
+hotjar:
+  enabled: true
+  site_id: ""  # fill in your numeric site ID
+
+# Search Atlas SEO — keyword rankings, competitor analysis, opportunities
+# SEARCH_ATLAS_API_KEY: Search Atlas → Account → API Access
+# (same key as GoHighLevel → Settings → Integrations → Search Atlas)
+search_atlas:
+  enabled: true
+  domain: "ruthklein.com"
+  competitors:
+    - "christinekane.com"
+    - "melindacohan.com"
+  tracked_keywords:
+    - "time management for entrepreneurs"
+    - "productivity coach for women"
+    - "business coach for women"
+    - "work life balance coach"
+    - "sacred energy of time"
+    - "ruth klein author"
+  seed_keywords:
+    - "time management"
+    - "productivity coaching"
+    - "business coaching women"
+    - "author coach speaker"
+
 # Manual CSV imports — drop files in analytics-agent/manual-imports/
 manual_imports:
   medium:
