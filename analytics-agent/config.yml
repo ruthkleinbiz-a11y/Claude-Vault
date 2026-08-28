@@ -1,8 +1,7 @@
 report:
   title: "Ruth Klein — Biweekly Analytics Report"
-  to_email: "claudia@every-task.com"
-  from_name: "Analytics Agent"
   lookback_days: 14
+  # PDF saved to Google Drive: Ruth Klein | Every Task → Deliverables → Marketing → Analytics Reports
 
 # Windsor.ai connector slugs to pull from.
 # Set enabled: false for any platform not yet connected in Windsor.

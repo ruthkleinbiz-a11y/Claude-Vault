@@ -20,7 +20,7 @@ load_dotenv(Path(__file__).parent / ".env")
 from connectors import windsor, twitter as twitter_connector, manual_import
 from report import generator
 from sheets import writer as sheets_writer
-from email import sender as email_sender
+from drive import uploader as drive_uploader
 
 
 REPORTS_DIR = Path(__file__).parent / "reports"
@@ -121,12 +121,13 @@ def main():
     print("[agent] Generating PDF...")
     generator.generate_pdf(analysis, all_data, config, pdf_path)
 
-    # 4. Email the report
-    print("[agent] Emailing report...")
+    # 4. Upload PDF to Google Drive
+    print("[agent] Uploading PDF to Google Drive...")
     try:
-        email_sender.send_report(pdf_path, config)
+        drive_url = drive_uploader.upload_report(pdf_path)
+        print(f"[agent] Drive link: {drive_url}")
     except Exception as exc:
-        print(f"[email] WARNING: {exc}")
+        print(f"[drive] WARNING: {exc}")
 
     # 5. Save data snapshot for next period comparison
     save_to_history(all_data)
