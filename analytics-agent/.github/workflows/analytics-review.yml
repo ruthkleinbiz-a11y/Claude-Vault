@@ -48,3 +48,12 @@ jobs:
           name: analytics-report
           path: analytics-agent/reports/analytics-report-*.pdf
           retention-days: 90
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code@latest
+
+      - name: Update Weekly Signal dashboard artifact
+        working-directory: ${{ github.workspace }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: bash analytics-agent/dashboard/publish_artifact.sh

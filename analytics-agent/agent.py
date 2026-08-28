@@ -21,6 +21,7 @@ from connectors import windsor, twitter as twitter_connector, manual_import
 from report import generator
 from sheets import writer as sheets_writer
 from drive import uploader as drive_uploader
+from dashboard import extractor as dash_extractor
 
 
 REPORTS_DIR = Path(__file__).parent / "reports"
@@ -129,7 +130,12 @@ def main():
     except Exception as exc:
         print(f"[drive] WARNING: {exc}")
 
-    # 5. Save data snapshot for next period comparison
+    # 5. Write dashboard data JSON for artifact auto-update
+    print("[agent] Writing dashboard data...")
+    dash_data = dash_extractor.build_dash_data(all_data, analysis, config)
+    dash_extractor.save_dash_data(dash_data, str(REPORTS_DIR / "dashboard-data.json"))
+
+    # 6. Save data snapshot for next period comparison
     save_to_history(all_data)
 
     print("=" * 60)
