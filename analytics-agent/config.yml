@@ -1,0 +1,95 @@
+report:
+  title: "Ruth Klein — Biweekly Analytics Report"
+  lookback_days: 14
+  # PDF saved to Google Drive: Ruth Klein | Every Task → Deliverables → Marketing → Analytics Reports
+
+# Windsor.ai connector slugs to pull from.
+# Set enabled: false for any platform not yet connected in Windsor.
+windsor_connectors:
+  - id: instagram
+    label: Instagram
+    enabled: true
+    metrics: [followers, impressions, reach, profile_views, website_clicks, posts_count]
+
+  - id: facebook
+    label: Facebook
+    enabled: true
+    metrics: [page_fans, impressions, reach, post_engagements, link_clicks]
+
+  - id: youtube
+    label: YouTube
+    enabled: true
+    metrics: [views, subscribers, watch_time_minutes, avg_view_duration, impressions, click_through_rate]
+
+  - id: tiktok_organic
+    label: TikTok
+    enabled: true
+    metrics: [video_views, followers, profile_views, likes, comments, shares]
+
+  - id: pinterest
+    label: Pinterest
+    enabled: true
+    metrics: [impressions, saves, outbound_clicks, pin_clicks, total_audience]
+
+  - id: googleanalytics4
+    label: Website (GA4)
+    enabled: true
+    # Tracked separately by page group (blogs, quiz, lead magnets, other pages)
+    page_groups:
+      blogs: "/blog"
+      quiz: "/quiz"
+      lead_magnets: "/free|/download|/guide|/checklist"
+      other: ".*"
+    metrics: [sessions, users, page_views, bounce_rate, avg_session_duration, conversions]
+
+  - id: gohighlevel
+    label: HighLevel Emails
+    enabled: true
+    metrics: [emails_sent, open_rate, click_rate, unsubscribes, contacts_added]
+
+# Non-Windsor platforms (manual or direct API)
+twitter:
+  enabled: true
+  username: ""  # fill in your @handle (without @)
+  metrics: [impressions, engagements, likes, retweets, replies, link_clicks, follows]
+
+# Hotjar — visitor behavior, heatmaps, rage clicks, NPS
+# HOTJAR_API_KEY: Settings → Account → API Access → Personal API Key
+# HOTJAR_SITE_ID: Settings → Sites → Site ID (numeric)
+hotjar:
+  enabled: true
+  site_id: ""  # fill in your numeric site ID
+
+# Search Atlas SEO — keyword rankings, competitor analysis, opportunities
+# SEARCH_ATLAS_API_KEY: Search Atlas → Account → API Access
+# (same key as GoHighLevel → Settings → Integrations → Search Atlas)
+search_atlas:
+  enabled: true
+  domain: "ruthklein.com"
+  competitors:
+    - "christinekane.com"
+    - "melindacohan.com"
+  tracked_keywords:
+    - "time management for entrepreneurs"
+    - "productivity coach for women"
+    - "business coach for women"
+    - "work life balance coach"
+    - "sacred energy of time"
+    - "ruth klein author"
+  seed_keywords:
+    - "time management"
+    - "productivity coaching"
+    - "business coaching women"
+    - "author coach speaker"
+
+# Manual CSV imports — drop files in analytics-agent/manual-imports/
+manual_imports:
+  medium:
+    enabled: true
+    filename_pattern: "medium_stats_*.csv"
+    metrics: [views, reads, read_ratio, claps, fans]
+
+  substack:
+    enabled: true
+    filename_pattern: "substack_*.csv"
+    metrics: [emails_sent, open_rate, paid_subscribers, free_subscribers, new_subscribers]
