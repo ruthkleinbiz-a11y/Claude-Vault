@@ -17,3 +17,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# Browser collection
+browser-data/screenshots/

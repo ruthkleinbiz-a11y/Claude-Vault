@@ -22,6 +22,7 @@ from report import generator
 from sheets import writer as sheets_writer
 from drive import uploader as drive_uploader
 from dashboard import extractor as dash_extractor
+from browser import merge as browser_merge
 
 
 REPORTS_DIR = Path(__file__).parent / "reports"
@@ -101,6 +102,11 @@ def collect_all_data(config: dict) -> dict:
         all_data["substack"] = manual_import.fetch_substack(
             manual_cfg["substack"].get("metrics", [])
         )
+
+    # Fill any remaining gaps from the Mac's browser collection run.
+    # API values always win; this only covers what the APIs couldn't supply.
+    print("[agent] Merging browser-collected data...")
+    all_data = browser_merge.merge(all_data)
 
     return all_data
 
