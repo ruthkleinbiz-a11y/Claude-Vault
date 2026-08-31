@@ -36,8 +36,12 @@ def _fmt(val) -> str:
     if val is None:
         return "—"
     if isinstance(val, float):
-        if val < 1:
+        # Sub-1 floats are rates (0.41 → 41.0%)
+        if 0 < val < 1:
             return f"{val*100:.1f}%"
+        # Whole-number floats come from summing Windsor rows — render as ints
+        if val == int(val):
+            return f"{int(val):,}"
         return f"{val:,.1f}"
     return f"{int(val):,}"
 
@@ -88,15 +92,25 @@ Be direct, data-driven, and write like you're briefing a CEO. No fluff."""
 
 
 def analyze_with_claude(all_data: dict, previous_data: dict | None, config: dict) -> str:
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "ANTHROPIC_API_KEY is not set — no report can be generated without it.\n"
+            "  Local runs:      add ANTHROPIC_API_KEY to analytics-agent/.env\n"
+            "  GitHub Actions:  add it under Settings → Secrets and variables → Actions"
+        )
+
+    client = anthropic.Anthropic(api_key=api_key)
     prompt = _build_claude_prompt(all_data, previous_data, config)
 
     message = client.messages.create(
-        model="claude-opus-4-8",
-        max_tokens=4096,
+        model="claude-opus-5",
+        max_tokens=16000,
+        thinking={"type": "adaptive"},
         messages=[{"role": "user", "content": prompt}],
     )
-    return message.content[0].text
+    # Response may contain thinking blocks before the text block
+    return "".join(b.text for b in message.content if b.type == "text")
 
 
 def _parse_sections(analysis: str) -> dict[str, str]:
@@ -120,6 +134,21 @@ def _parse_sections(analysis: str) -> dict[str, str]:
     return sections
 
 
+def _metric(blob, key):
+    """
+    Pull a metric out of a connector payload.
+    Windsor returns a list of rows (sum across them); the manual/direct
+    connectors return a single dict.
+    """
+    data = (blob or {}).get("data")
+    if isinstance(data, list):
+        total = sum(float(row.get(key, 0) or 0) for row in data if isinstance(row, dict))
+        return total or None
+    if isinstance(data, dict):
+        return data.get(key)
+    return None
+
+
 def _platform_summary_table(all_data: dict) -> list:
     """Build a one-page summary table of all platforms."""
     rows = [["Platform", "Key Metric", "Value", "Secondary Metric", "Value"]]
@@ -137,17 +166,28 @@ def _platform_summary_table(all_data: dict) -> list:
     ]
 
     for source, label, k1, l1, k2, l2 in mappings:
-        d = all_data.get(source, {}).get("data") or {}
-        v1 = _fmt(d.get(k1))
-        v2 = _fmt(d.get(k2))
-        rows.append([label, l1, v1, l2, v2])
+        blob = all_data.get(source, {})
+        rows.append([label, l1, _fmt(_metric(blob, k1)), l2, _fmt(_metric(blob, k2))])
 
-    # GA4 website rows
-    ga4 = all_data.get("googleanalytics4", {})
+    # GA4 website rows (nested per page group)
+    ga4 = all_data.get("googleanalytics4", {}) or {}
     for group in ["blogs", "quiz", "lead_magnets", "other"]:
-        d = ga4.get(group, {}).get("data") or {}
+        blob = ga4.get(group, {})
         label = f"Website ({group.replace('_', ' ').title()})"
-        rows.append([label, "Sessions", _fmt(d.get("sessions")), "Users", _fmt(d.get("users"))])
+        rows.append([label, "Sessions", _fmt(_metric(blob, "sessions")),
+                     "Users", _fmt(_metric(blob, "users"))])
+
+    # Hotjar behavior row
+    hj = all_data.get("hotjar", {})
+    if (hj or {}).get("data"):
+        rows.append(["Hotjar (Behavior)", "Sessions", _fmt(_metric(hj, "sessions")),
+                     "NPS score", _fmt(_metric(hj, "nps_score"))])
+
+    # Search Atlas SEO row
+    sa_overview = (all_data.get("search_atlas", {}) or {}).get("overview", {})
+    if (sa_overview or {}).get("data"):
+        rows.append(["Search Atlas (SEO)", "Organic traffic", _fmt(_metric(sa_overview, "organic_traffic")),
+                     "Domain authority", _fmt(_metric(sa_overview, "domain_authority"))])
 
     return rows
 

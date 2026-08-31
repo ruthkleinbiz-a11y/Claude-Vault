@@ -20,9 +20,13 @@ def _date_range(lookback_days: int) -> tuple[str, str]:
 
 def fetch_connector(connector_id: str, metrics: list[str], lookback_days: int = 14) -> dict:
     """Return aggregated metric totals for the given connector over the lookback window."""
+    api_key = os.environ.get("WINDSOR_API_KEY")
+    if not api_key:
+        return {"connector": connector_id, "data": None, "error": "WINDSOR_API_KEY not set"}
+
     date_from, date_to = _date_range(lookback_days)
     params = {
-        "api_key": os.environ["WINDSOR_API_KEY"],
+        "api_key": api_key,
         "date_from": date_from,
         "date_to": date_to,
         "connector": connector_id,
@@ -40,11 +44,16 @@ def fetch_connector(connector_id: str, metrics: list[str], lookback_days: int = 
 
 def fetch_ga4_by_page_group(page_groups: dict, metrics: list[str], lookback_days: int = 14) -> dict:
     """Fetch GA4 data broken down by page group (blogs, quiz, lead magnets, other)."""
+    api_key = os.environ.get("WINDSOR_API_KEY")
     date_from, date_to = _date_range(lookback_days)
     results = {}
     for group_name, path_pattern in page_groups.items():
+        if not api_key:
+            results[group_name] = {"data": None, "pattern": path_pattern,
+                                   "error": "WINDSOR_API_KEY not set"}
+            continue
         params = {
-            "api_key": os.environ["WINDSOR_API_KEY"],
+            "api_key": api_key,
             "date_from": date_from,
             "date_to": date_to,
             "connector": "googleanalytics4",

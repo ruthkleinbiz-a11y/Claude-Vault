@@ -1,0 +1,19 @@
+# Credentials — never commit these
+.env
+secrets/
+*.json.key
+google-service-account.json
+
+# Generated output
+reports/*.pdf
+reports/dashboard-data.json
+reports/history.json
+
+# Manual CSV drops (data, not code)
+manual-imports/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

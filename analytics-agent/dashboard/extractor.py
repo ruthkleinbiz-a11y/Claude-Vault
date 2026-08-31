@@ -151,11 +151,22 @@ def build_dash_data(all_data: dict, analysis: str, config: dict) -> dict:
         ("Outbound clicks", "outbound_clicks"), ("Pin clicks", "pin_clicks"),
     ])
 
-    # GA4 — aggregate across all page groups
-    ga4_sessions, ga4_users, ga4_new_users = 0, 0, 0
+    # GA4 — aggregate across all page groups.
+    # Windsor returns this nested per group: all_data["googleanalytics4"][group]["data"]
+    def _ga4_metric(group_blob: dict, metric: str) -> float:
+        data = group_blob.get("data") or {}
+        if isinstance(data, list):
+            return sum(float(row.get(metric, 0) or 0) for row in data if isinstance(row, dict))
+        return float(_num(data.get(metric)) or 0)
+
+    ga4_blob = all_data.get("googleanalytics4", {}) or {}
+    ga4_sessions, ga4_users = 0, 0
     for group in ["blogs", "quiz", "lead_magnets", "other"]:
-        ga4_sessions += _connector_val(all_data, "googleanalytics4", "sessions") or 0
-        ga4_users    += _connector_val(all_data, "googleanalytics4", "users") or 0
+        group_blob = ga4_blob.get(group)
+        if not isinstance(group_blob, dict):
+            continue
+        ga4_sessions += _ga4_metric(group_blob, "sessions")
+        ga4_users    += _ga4_metric(group_blob, "users")
 
     ghl = platform("gohighlevel", [
         ("Emails sent", "emails_sent"), ("Open rate", "open_rate"),
